@@ -1,5 +1,6 @@
 import React from 'react'
-import Components from '../components/components.js'
+import Components from '../components/components'
+import { ImagesContext } from '../components/image'
 
 class StoryblokEntry extends React.Component {
   static getDerivedStateFromProps(props, state) {
@@ -25,10 +26,13 @@ class StoryblokEntry extends React.Component {
 
   render() {
     let content = this.state.story.content
+    let fields = this.state.story.fields
 
     return (
       <div>
-        {React.createElement(Components(content.component), {key: content._uid, blok: content})}
+        <ImagesContext.Provider value={(fields && fields.images) || []}>
+          {React.createElement(Components(content.component), {key: content._uid, blok: content})}
+        </ImagesContext.Provider>
       </div>
     )
   }
