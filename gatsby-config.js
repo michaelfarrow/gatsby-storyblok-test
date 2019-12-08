@@ -5,6 +5,8 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    `gatsby-plugin-typescript`,
+    `gatsby-plugin-styled-jsx`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -30,7 +32,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-storyblok',
       options: {
-        accessToken: 'mmPK4QQgw9k8YNu0D3gEiwtt',
+        accessToken: 'q5xJqNcCSKzbC6Rx6HWIMAtt',
         homeSlug: 'home',
         version: process.env.NODE_ENV === 'production' ? 'published' : 'draft'
       }

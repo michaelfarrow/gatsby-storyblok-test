@@ -15,12 +15,24 @@ export const ImagesContext = React.createContext([]);
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-class Image extends React.Component {
+const IMAGE_STYLE = {
+  display: 'block',
+  width: '100%'  
+}
+
+interface ImageProps {
+  src: string
+  alt?: string
+  className?: string
+  ratio?: number
+}
+
+class Image extends React.Component<ImageProps> {
 
   static contextType = ImagesContext;
 
   render () {
-    const { src, alt } = this.props
+    const { src, alt, className, ratio } = this.props
     const images = this.context || []
     if (!src) return null
     const _src = src.indexOf('//a.storyblok.com/') === 0 ? `https:${src}` : src
@@ -32,9 +44,13 @@ class Image extends React.Component {
         break
       }
     }
-    const defaultImage = <img src={_src} alt={alt} />
+    let imageStyle: any = {}
+    if (ratio) imageStyle.height = '100%'
+    imageStyle = {...IMAGE_STYLE, ...imageStyle}
+    const defaultImage = <img className={className} style={imageStyle} src={_src} alt={alt} />
+    let ImageComponent = defaultImage
     if (imageRelPath) {
-      return <StaticQuery
+      ImageComponent = <StaticQuery
         query={graphql`
           query {
             images: allFile(filter:{ extension: { regex: "/jpeg|jpg|png|gif/"}}) {
@@ -43,7 +59,7 @@ class Image extends React.Component {
                 extension
                 relativePath
                 childImageSharp {
-                  fluid(maxWidth: 1000) {
+                  fluid(maxWidth: 2000) {
                     ...GatsbyImageSharpFluid
                   }
                 }
@@ -55,11 +71,33 @@ class Image extends React.Component {
         render={({ images }) => {
           const image = images.edges.find(image => image.node.relativePath === imageRelPath)
           if (!image) return defaultImage
-          return <Img fluid={image.node.childImageSharp.fluid} alt={alt} />
+          return <Img className={className} style={imageStyle} fluid={image.node.childImageSharp.fluid} alt={alt} />
         }}
       />
     }
-    return defaultImage
+    return <>
+      {(ratio && <span className='image-ratio-wrapper'>
+        <span className='image-ratio'>
+          {ImageComponent}
+        </span>
+      </span>) || ImageComponent}
+      <style jsx>{`
+        .image-ratio-wrapper {
+          display: block;
+          width: 100%;
+          position: relative;
+          padding-top: ${(ratio || 1) * 100}%;
+        }
+        .image-ratio {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      `}</style>
+    </>
   }
 
 }

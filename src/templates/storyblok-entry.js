@@ -1,6 +1,6 @@
 import React from 'react'
 import Components from '../components/components'
-import { ImagesContext } from '../components/image'
+import { ImagesContext } from '../components/img'
 
 class StoryblokEntry extends React.Component {
   static getDerivedStateFromProps(props, state) {
@@ -20,7 +20,6 @@ class StoryblokEntry extends React.Component {
 
   constructor(props) {
     super(props)
-
     this.state = StoryblokEntry.prepareStory(props)
   }
 
