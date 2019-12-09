@@ -59,7 +59,7 @@ class Image extends React.Component<ImageProps> {
                 extension
                 relativePath
                 childImageSharp {
-                  fluid(maxWidth: 2000) {
+                  fluid(maxWidth: 2000, traceSVG: { background: "#fff", color: "#663399" }) {
                     ...GatsbyImageSharpFluid_tracedSVG
                   }
                 }
