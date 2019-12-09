@@ -80,7 +80,6 @@ async function processBlok (blok, processImage, images = {}) {
         }))
       } else if (typeof value === 'string' && (value.startsWith('//a.storyblok.com/') || value.startsWith('https://a.storyblok.com/'))) {
         const _src = value.startsWith('//') ? `https:${value}` : value
-        console.log(_src)
         if (!images[_src]) {
           const fileNode = await processImage(_src)
           if (fileNode) images[_src] = fileNode.id
@@ -103,7 +102,6 @@ exports.onCreateNode = async ({
   if (node.internal.type === 'StoryblokEntry') {
     const content = JSON.parse(node.content)
     const images = await processBlok(content, processRemoteImage(node, createNode, createNodeId, cache, store))
-    console.log(images)
     createNodeField({
       node,
       name: 'images___NODE',

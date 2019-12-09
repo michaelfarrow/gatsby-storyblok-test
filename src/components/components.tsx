@@ -1,5 +1,6 @@
 import Page from './page'
 import CV from './cv'
+import WorkIndex from './work-index'
 
 import ComponentNotFound from './component-not-found'
 
@@ -14,9 +15,11 @@ import Experience from './experience'
 import SkillSet from './skill-set'
 import Skill from './skill'
 import Education from './education'
+import WorkList from './work-list'
 
 const ComponentList = {
   page: Page,
+  work_index: WorkIndex,
   work: Page,
   cv: CV,
   row: Row,
@@ -29,7 +32,8 @@ const ComponentList = {
   experience: Experience,
   skill_set: SkillSet,
   skill: Skill,
-  education: Education
+  education: Education,
+  work_list: WorkList
 }
 
 const Components = (type) => {
