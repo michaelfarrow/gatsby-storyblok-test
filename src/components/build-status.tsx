@@ -29,7 +29,6 @@ export default class BuildStatus extends React.Component<BuildStatusProps, Build
 
   render() {
     const { now } = this.state
-    console.log('BuildStatus render', now)
     return <div className='build-status'>
       <img src={`${this.badge}?t=${now}`} alt='Build Status' />
       <style jsx>{`
