@@ -2,6 +2,7 @@ import React from 'react'
 import Components from '../components/components'
 import SbEditable from 'storyblok-react'
 import config from '../../gatsby-config'
+import BuildStatus from '../components/build-status'
 
 const sbConfigs = config.plugins.filter((item) => {
   return item.resolve === 'gatsby-source-storyblok'
@@ -84,11 +85,14 @@ class StoryblokEntry extends React.Component {
     let content = this.state.story.content
 
     return (
-      <SbEditable content={content}>
-      <div>
-        {React.createElement(Components(content.component), {key: content._uid, blok: content})}
-      </div>
-      </SbEditable>
+      <>
+        <BuildStatus />
+        <SbEditable content={content}>
+          <div>
+            {React.createElement(Components(content.component), {key: content._uid, blok: content})}
+          </div>
+        </SbEditable>
+      </>
     )
   }
 }
