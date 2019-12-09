@@ -1,7 +1,7 @@
 import React from 'react'
 import Blok, { BlokContent } from './blok'
 import { StaticQuery, graphql } from 'gatsby'
-import RawImage from '../components/img'
+import RawImage, { ImagesContext } from '../components/img'
 
 export interface WorkListContent extends BlokContent {}
 
@@ -37,15 +37,21 @@ class WorkList extends React.Component<WorkListContent> {
           }
         `}
         render={data => {
-          return <ul>{data.entries.edges.map(edge => {
-            const { node } = edge
-            const content = JSON.parse(node.content)
-            const { thumbnail } = content
-            return <li key={node.uuid}>
-              {(thumbnail && thumbnail.image && <RawImage src={thumbnail.image} alt={node.name} />) || null}
-              <span>{node.name}</span>
-            </li>
-          })}</ul>
+          let images = []
+          data.entries.edges.forEach(edge => {
+            if (edge.node.fields.images) images = images.concat(edge.node.fields.images)
+          })
+          return <ImagesContext.Provider value={images}>
+            <ul>{data.entries.edges.map(edge => {
+              const { node } = edge
+              const content = JSON.parse(node.content)
+              const { thumbnail } = content
+              return <li key={node.uuid}>
+                {(thumbnail && thumbnail.image && <RawImage src={thumbnail.image} alt={node.name} />) || null}
+                <span>{node.name}</span>
+              </li>
+            })}</ul>
+          </ImagesContext.Provider>
         }}
       />
     </>
