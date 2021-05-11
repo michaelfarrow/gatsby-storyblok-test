@@ -17,7 +17,7 @@
     "gatsby-source-storyblok": "^0.2.6",
     "gatsby-storyblok-image": "^0.2.2",
     "gatsby-transformer-sharp": "^2.3.7",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "markdown-to-jsx": "^6.10.3",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
