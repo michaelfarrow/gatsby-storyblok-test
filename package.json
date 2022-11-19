@@ -27,7 +27,7 @@
     "react-moment": "^0.9.6",
     "react-player": "^1.14.2",
     "storyblok-react": "0.0.10",
-    "styled-jsx": "^3.2.4"
+    "styled-jsx": "^5.1.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
